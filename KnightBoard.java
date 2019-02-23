@@ -21,141 +21,60 @@ public class KnightBoard {
     public KnightBoard(int startingRows,int startingCols) {
       board = new int[startingRows][startingCols];
     }
-    public boolean addKnight(int r, int c, int count, int position) {
-      if (position == 0) {
-        if (r - 2 > -1 && c - 1 > -1 && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
-        }
-        }
-      if (position == 1) {
-        if (r - 2 > -1 && c + 1 < board[0].length && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
-        }
+    public boolean isGood(int r, int c) {
+      return  r >= 0 && c >= 0 && r < board.length && c < board.length && board[r][c] == 0;
+    }
+    public int count() {
+      board[0][0] = 1;
+      return helpcount(0,0,0,1);
+    }
+    public int helpcount(int row, int col, int count, int counter){
+      int addrow = 0;
+      int addcol = 0;
+      if (counter == board.length * board[0].length) {
+        return 1;
       }
-      if (position == 2) {
-        if (r - 1 > -1 && c + 2 < board[0].length && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
+      for (int i = 0; i < 8; i += 1) {
+        if (i == 0) {
+          addrow = -1;
+          addcol = -2;
         }
+        if (i == 1) {
+          addrow = -2;
+          addcol = -1;
+        }
+        if (i == 2) {
+          addrow = -2;
+          addcol = 1;
+        }
+        if (i == 3) {
+          addrow = -1;
+          addcol = 2;
+        }
+        if (i == 4) {
+          addrow = 1;
+          addcol = 2;
+        }
+        if (i == 5) {
+          addrow = 2;
+          addcol = 1;
+        }
+        if (i == 6) {
+          addrow = 2;
+          addcol = -1;
+        }
+        if (i == 7) {
+          addrow = 1;
+          addcol = -2;
+        }
+        if (isGood(row + addrow, col + addcol)) {
+          board[row + addrow][col + addcol] = counter + 1;
+          count += helpcount(row + addrow, col + addcol, 0, counter + 1);
+          board[row + addrow][col + addcol] = 0;
+        }
+        }
+        return count;
       }
-      if (position == 3) {
-        if (r + 1 < board.length && c + 2 < board[0].length && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
-        }
-          }
-      if (position == 4) {
-        if (r + 2 < board.length && c + 1 < board[0].length && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
-            }
-            }
-      if (position == 5) {
-        if (r + 2 < board.length && c - 1 > -1 && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
-            }
-              }
-      if (position == 6) {
-        if (r + 1 < board.length && c - 2 > -1 && board[r][c] == 0) {
-          board[r][c] = count;
-          return true;
-          }
-        }
-        if (position == 7) {
-            if (r -1  > -1 && c - 2 > -1 && board[r][c] == 0) {
-              board[r][c] = count;
-              return true;
-          }
-        }
-            return false;
-        }
-      public boolean remvoeKnight(int r, int c, int count, int position) {
-        if (position == 0) {
-          if (r - 2 > -1 && c - 1 > -1 && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-          }
-          }
-        if (position == 1) {
-          if (r - 2 > -1 && c + 1 < board[0].length && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-          }
-        }
-        if (position == 2) {
-          if (r - 1 > -1 && c + 2 < board[0].length && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-          }
-        }
-        if (position == 3) {
-          if (r + 1 < board.length && c + 2 < board[0].length && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-          }
-            }
-        if (position == 4) {
-          if (r + 2 < board.length && c + 1 < board[0].length && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-              }
-              }
-        if (position == 5) {
-          if (r + 2 < board.length && c - 1 > -1 && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-              }
-                }
-        if (position == 6) {
-          if (r + 1 < board.length && c - 2 > -1 && board[r][c] != 0) {
-            board[r][c] = 0;
-            return true;
-            }
-          }
-          if (position == 7) {
-              if (r -1  > -1 && c - 2 > -1 && board[r][c] != 0) {
-                board[r][c] = 0;
-                return true;
-            }
-          }
-              return false;
-          }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      }
+    }
