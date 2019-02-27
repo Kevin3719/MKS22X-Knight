@@ -89,10 +89,10 @@ public class KnightBoard {
     public int helpcount(int row, int col, int count, int counter){
       int addrow = 0;
       int addcol = 0;
-      if (counter == board.length * board[0].length) {
-        return 1;
-      }
-      for (int i = 0; i < 8; i += 1) {
+        if (counter == board.length * board[0].length) {
+          return 1;
+        }
+      for (int i = 0; i < 8;  i+= 1) {
         if (i == 0) {
           addrow = -1;
           addcol = -2;
@@ -142,15 +142,74 @@ public class KnightBoard {
         return false;
       }
       public boolean help(int row, int col, int count, int counter){
-        int addrow = 0;
-        int addcol = 0;
         if (count > 0) {
           return true;
         }
         if (counter == board.length * board[0].length) {
           return true;
         }
-        for (int i = 0; i < 8; i += 1) {
+        int addrow = 0;
+        int addcol = 0;
+        int[] movescount = new int[8];
+        int[] lowest = new int[8];
+        for (int i = 0; i < 8; i++) {
+          if (i == 0) {
+            addrow = -1;
+            addcol = -2;
+          }
+          if (i == 1) {
+            addrow = -2;
+            addcol = -1;
+          }
+          if (i == 2) {
+            addrow = -2;
+            addcol = 1;
+          }
+          if (i == 3) {
+            addrow = -1;
+            addcol = 2;
+          }
+          if (i == 4) {
+            addrow = 1;
+            addcol = 2;
+          }
+          if (i == 5) {
+            addrow = 2;
+            addcol = 1;
+          }
+          if (i == 6) {
+            addrow = 2;
+            addcol = -1;
+          }
+          if (i == 7) {
+            addrow = 1;
+            addcol = -2;
+          }
+          if (isGood(row + addrow, col + addcol)) {
+            optimizer[row + addrow][col + addcol] -= 1;
+            movescount[i] = optimizer[row + addrow][col + addcol];
+          }
+          else {
+            movescount[i] = 0;
+          }
+        }
+        int smallest = movescount[0];
+        int index = 0;
+        for (int i = 0; i < 8; i++) {
+          smallest = movescount[0];
+          index = 0;
+          for (int j = 0; j < 8; j++) {
+          if (movescount[j] < smallest) {
+            index = j;
+            smallest = movescount[j];
+          }
+        }
+        lowest[i] = index;
+        movescount[index] = 99;
+         }
+
+        for (int j = 0; j < 8; j += 1) {
+          int i = lowest[j];
           if (i == 0) {
             addrow = -1;
             addcol = -2;
@@ -191,6 +250,43 @@ public class KnightBoard {
             }
             board[row + addrow][col + addcol] = 0;
           }
+        }
+          for (int i = 0; i < 8; i++) {
+            if (i == 0) {
+              addrow = -1;
+              addcol = -2;
+            }
+            if (i == 1) {
+              addrow = -2;
+              addcol = -1;
+            }
+            if (i == 2) {
+              addrow = -2;
+              addcol = 1;
+            }
+            if (i == 3) {
+              addrow = -1;
+              addcol = 2;
+            }
+            if (i == 4) {
+              addrow = 1;
+              addcol = 2;
+            }
+            if (i == 5) {
+              addrow = 2;
+              addcol = 1;
+            }
+            if (i == 6) {
+              addrow = 2;
+              addcol = -1;
+            }
+            if (i == 7) {
+              addrow = 1;
+              addcol = -2;
+            }
+            if (isGood(row + addrow, col + addcol)) {
+              optimizer[row + addrow][col + addcol] += 1;
+            }
           }
           return false;
         }
