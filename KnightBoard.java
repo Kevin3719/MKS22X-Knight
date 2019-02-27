@@ -19,10 +19,28 @@ public class KnightBoard {
       }
       return output;
     }
+    public String printchart() {
+      String output = "";
+      if (optimizer.length == 0) {
+        return output;
+      }
+      for (int i = 0; i < optimizer.length; i++) {
+        for ( int j = 0; j < optimizer[0].length; j++) {
+          if (optimizer[i][j] == 0) {
+            output += "_ ";
+          }
+          else {
+          output += optimizer[i][j] + " ";
+        }
+      }
+        output += "\n";
+      }
+      return output;
+    }
     public void makechart() {
-      for (int i; i < optimizer.length;i++) {
+      for (int i = 0; i < optimizer.length;i++) {
         if (i == 0 || i == optimizer.length - 1) {
-      for (int j; j < optimizer[0].length;j++) {
+      for (int j= 0; j < optimizer[0].length;j++) {
         if (j == 0 || j == optimizer[0].length - 1) {
           optimizer[i][j] = 2;
         }
@@ -33,7 +51,7 @@ public class KnightBoard {
       }
       }
       else if (i == 1 || i == optimizer.length - 2) {
-        for (int j; j < optimizer[0].length;j++) {
+        for (int j = 0; j < optimizer[0].length;j++) {
           if (j == 0 || j == optimizer[0].length - 1) {
             optimizer[i][j] = 3;
           }
@@ -44,7 +62,7 @@ public class KnightBoard {
         }
       }
       else{
-      for (int j; j < optimizer[0].length;j++) {
+      for (int j = 0; j < optimizer[0].length;j++) {
         if (j == 0 || j == optimizer[0].length - 1) {
           optimizer[i][j] = 4;
         }
