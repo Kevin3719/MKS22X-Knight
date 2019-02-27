@@ -12,6 +12,9 @@ public class KnightBoard {
             output += "_ ";
           }
           else {
+          if (board[i][j] < 10) {
+            output += " ";
+          }
           output += board[i][j] + " ";
         }
       }
